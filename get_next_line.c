@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshihiro <mshihiro@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:07:44 by zhihao            #+#    #+#             */
-/*   Updated: 2023/01/08 16:51:21 by mshihiro         ###   ########.fr       */
+/*   Updated: 2023/01/10 20:56:06 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*get_line2(char *save)
 
 char	*get_next_line(int fd)
 {
-	static char	*save;
+	static char	*save[OPEN_MAX];
 	char		*line;
 
 	line = NULL;
