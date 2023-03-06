@@ -6,7 +6,7 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:07:44 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/06 21:53:30 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/06 22:24:36 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 char    *read_file(int fd, char *save)
 {
-    int     read_byte;
+    size_t    read_byte;
     char    *buffer;
     char    *tmp;
 
-    buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+    buffer = malloc(sizeof(char) * (BUFFER_SIZE + size_t(1)));//1をsize_t型にキャストしているのは、BUFFER_SIZEがunsigned int型だから
     if (!buffer)
         return (NULL);
     read_byte = 1;//read_byteが0になるまでwhileに入る
@@ -47,7 +47,7 @@ char    *get_line(char *save)
     int     i;
 
     i = 0;
-    if (!save)
+    if (!save || !*save)//*saveはsave[0]のこと	←超重要
         return (NULL);
     while (save[i] && save[i] != '\n')
         i++;
