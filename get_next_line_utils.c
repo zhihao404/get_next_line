@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshihiro <mshihiro@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 16:43:59 by mshihiro          #+#    #+#             */
-/*   Updated: 2023/01/08 16:45:07 by mshihiro         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:35:32 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,31 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ret);
 }
 
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	d_len;
+	size_t	s_len;
+	size_t	i;
+
+	i = 0;
+	s_len = ft_strlen(src);
+	if (dst == NULL && dstsize == 0)
+		return (s_len);
+	d_len = ft_strlen(dst);
+	if (d_len >= dstsize)
+		return (s_len + dstsize);
+	while (*dst)
+		dst++;
+	while (src[i] && i < (dstsize - d_len - 1))
+	{
+		*dst = src[i];
+		dst++;
+		i++;
+	}
+	*dst = '\0';
+	return (s_len + d_len);
+}
+
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -78,3 +103,4 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
