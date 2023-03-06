@@ -6,106 +6,100 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:53:54 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/04 14:00:13 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/06 23:08:08 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*read_file(int fd, char *save)
+char	*ft_strchr(const char *s, int c)
 {
-	int		read_byte;
-	char	*buffer;
-	char	*tmp;
+	unsigned char	*str;
+	int				i;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	read_byte = 1;
-	while (read_byte > 0 && strchr(save, '\n'))//文字列に'\n'がない場合whileに入る
+	c = (unsigned char)c;
+	str = (unsigned char *)s;
+	i = 0;
+	while (str[i] != '\0')
 	{
-		read_byte = read(fd, buffer, BUFFER_SIZE);
-		if (read_byte == -1)
-		{
-			free(buffer);
-			free(save);
-			return (NULL);
-		}
-		buffer[read_byte] = '\0';
-		tmp = ft_strjoin(save, buffer);
-		free(save);//saveはmallocしてるけどtmpはmallocしてないからここでfreeする
-		save = tmp;
+		if (str[i] == c)
+			return ((char *)&str[i]);
+		i++;
 	}
-	free(buffer);
-	return (save);
+	if (str[i] == '\0' && c == '\0')
+		return ((char *)&str[i]);
+	return (NULL);
 }
 
-char	*get_line(char *save)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*line;
-	int		i;
+	char	*ret;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	ret = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!ret)
+		return (NULL);
+	*ret = '\0';
+	ft_strlcat(ret, s1, ft_strlen(s1) + 1);
+	ft_strlcat(ret, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (ret);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	d_len;
+	size_t	s_len;
+	size_t	i;
 
 	i = 0;
-	if (!save)
-		return (NULL);
-	while (save[i] && save[i] != '\n')
+	s_len = ft_strlen(src);
+	if (dst == NULL && dstsize == 0)
+		return (s_len);
+	d_len = ft_strlen(dst);
+	if (d_len >= dstsize)
+		return (s_len + dstsize);
+	while (*dst)
+		dst++;
+	while (src[i] && i < (dstsize - d_len - 1))
+	{
+		*dst = src[i];
+		dst++;
 		i++;
-	line = malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	ft_strlcpy(line, save, i + 1);
-	if (save[i] == '\n')
-		line[i + 1] = '\n';
-	line[i] = '\0';
-	return (line);
+	}
+	*dst = '\0';
+	return (s_len + d_len);
 }
 
-char	*get_line2(char *save)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	*second_line;
-	int		i;
-	int		j;
+	size_t	i;
 
 	i = 0;
-	j = 0;
-	if (!save)
-		return (NULL);
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (save[i] == '\n')
+	if (dstsize == 0)
 	{
-		free(save);
-		return (NULL);
+		while (src[i])
+			i++;
+		return (i);
 	}
-	second_line = malloc(sizeof(char) * (ft_strlen(save) - i + 1));
-	if (!second_line)
-		return (NULL);
-	i += 1;
-	while (save[i])
-		second_line[j++] = save[i++];
-	second_line[j] = '\0';
-	return (second_line);
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (i < dstsize)
+		dst[i] = '\0';
+	while (src[i] != '\0')
+		i++;
+	return (i);
 }
 
-char	*get_next_line(int fd)
+size_t	ft_strlen(const char *s)
 {
-	static char	*save;
-	char		*line;
+	size_t	i;
 
-	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (!save)
-	{
-		save = malloc(sizeof(char) * 1);
-		if (!save)
-			return (NULL);
-		save[0] = '\0';
-	}
-	save = read_file(fd, save);
-	if (!save)
-		return (NULL);
-	line = get_line(save);
-	save = get_line2(save);
-	return (line);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }

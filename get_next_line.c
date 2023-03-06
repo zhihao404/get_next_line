@@ -6,7 +6,7 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:07:44 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/06 22:44:55 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/06 23:13:51 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*read_file(int fd, char *save)
 char	*get_line(char *save)
 {
     char		*line;
-	size_t		i;
+	size_t		i;//int型ではなくsize_t型にしている理由は、iが負の値になることがないから→安全
 
 	i = 0;
 	if (!save || !*save)//*saveはsave[0]のこと	←超重要
