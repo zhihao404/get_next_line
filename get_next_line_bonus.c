@@ -6,7 +6,7 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:59:48 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/06 23:28:48 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:03:35 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*save[OPEN_MAX];
+	static char	*save[FOPEN_MAX];//OPEN_MAXでなくFOPEN_MAXを使うべき、対応していない環境linuxがあるから
 	char		*line;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0)//fd > FOPEN_MAX
 		return (NULL);
 	if (!save[fd])
 	{
@@ -27,15 +27,15 @@ char	*get_next_line(int fd)
 			return (NULL);
 		save[fd][0] = '\0';
 	}
-	save[fd] = read_file(fd, save[fd]);
+	save[fd] = read_and_save_file_data(fd, save[fd]);
 	if (!save[fd])
 		return (NULL);
-	line = get_line(save[fd]);
-	save[fd] = get_line2(save[fd]);
+	line = extract_line_data(save[fd]);
+	save[fd] = extract_second_line_data(save[fd]);
 	return (line);
 }
 
-char	*read_file(int fd, char *save)
+char	*read_and_save_file_data(int fd, char *save)
 {
 	ssize_t	read_byte;
 	char	*buffer;
@@ -63,7 +63,7 @@ char	*read_file(int fd, char *save)
 	return (save);
 }
 
-char	*get_line(char *save)
+char	*extract_line_data(char *save)
 {
     char		*line;
 	size_t		i;
@@ -84,7 +84,7 @@ char	*get_line(char *save)
 	return (line);
 }
 
-char	*get_line2(char *save)
+char	*extract_second_line_data(char *save)
 {
 	char		*second_line;
 	size_t		i;

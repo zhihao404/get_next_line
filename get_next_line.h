@@ -6,7 +6,7 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:03:30 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/06 22:47:08 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:04:28 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 42
 # endif
 
-#include <unistd.h>
-#include <stdlib.h>
+#include <unistd.h> //read
+#include <stdlib.h> //malloc
+#include <stdio.h>  //FOPEN_MAX
 
 char	*get_next_line(int fd);
-char	*read_file(int fd, char *save);
-char	*get_line(char *save);
-char	*get_line2(char *save);
+char	*read_and_save_file_data(int fd, char *save);
+char	*extract_line_data(char *save);
+char	*extract_second_line_data(char *save);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

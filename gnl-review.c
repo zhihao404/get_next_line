@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 23:07:44 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/07 16:05:36 by zhihao           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
 char	*get_next_line(int fd)
@@ -27,15 +15,15 @@ char	*get_next_line(int fd)
 			return (NULL);
 		save[0] = '\0';
 	}
-	save = read_and_save_file_data(fd, save);
+	save = read_file(fd, save);
 	if (!save)//read_byteが-1の時にNULLが帰ってきているのをここで判定している
 		return (NULL);
-	line = extract_line_data(save);
-	save = extract_second_line_data(save);
+	line = get_line(save);
+	save = get_line2(save);
 	return (line);
 }
 
-char	*read_and_save_file_data(int fd, char *save)
+char	*read_file(int fd, char *save)
 {
 	ssize_t	read_byte;
 	char	*buffer;
@@ -63,7 +51,7 @@ char	*read_and_save_file_data(int fd, char *save)
 	return (save);
 }
 
-char	*extract_line_data(char *save)
+char	*get_line(char *save)
 {
     char		*line;
 	size_t		i;//int型ではなくsize_t型にしている理由は、iが負の値になることがないから→安全
@@ -84,7 +72,7 @@ char	*extract_line_data(char *save)
 	return (line);
 }
 
-char	*extract_second_line_data(char *save)
+char	*get_line2(char *save)
 {
 	char		*second_line;
 	size_t		i;
