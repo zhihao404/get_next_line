@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mshihiro <mshihiro@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:03:30 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/07 16:04:28 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:47:30 by mshihiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #  define BUFFER_SIZE 42
 # endif
 
-#include <unistd.h> //read
-#include <stdlib.h> //malloc
-#include <stdio.h>  //FOPEN_MAX
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
 char	*read_and_save_file_data(int fd, char *save);

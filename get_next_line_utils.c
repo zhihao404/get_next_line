@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mshihiro <mshihiro@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 16:43:59 by mshihiro          #+#    #+#             */
-/*   Updated: 2023/03/06 23:11:52 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:44:59 by mshihiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)//文字列sの先頭から文字cを探し、最初に見つかった位置をポインタで返す。見つからなかったときにはNULLを返す。
+char	*ft_strchr(const char *s, int c)
 {
 	unsigned char	*str;
 	int				i;
@@ -46,7 +46,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ret);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)//文字列を安全に結合するための関数
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	d_len;
 	size_t	s_len;
@@ -96,11 +96,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i;//size_t型にしている理由は、文字列の長さはunsigned intの範囲を超えることがあるから
+	size_t	i;
 
 	i = 0;
 	while (s[i] != '\0')
 		i++;
 	return (i);
 }
-

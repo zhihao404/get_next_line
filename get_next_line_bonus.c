@@ -6,7 +6,7 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:59:48 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/07 16:03:35 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:16:50 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*save[FOPEN_MAX];//OPEN_MAXでなくFOPEN_MAXを使うべき、対応していない環境linuxがあるから
+	static char	*save[FOPEN_MAX];
 	char		*line;
 
 	line = NULL;
-	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0)//fd > FOPEN_MAX
+	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!save[fd])
 	{
@@ -41,22 +41,22 @@ char	*read_and_save_file_data(int fd, char *save)
 	char	*buffer;
 	char	*tmp;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));//1をsize_t型にキャストしているのは、BUFFER_SIZEがunsigned int型だから
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + size_t(1)));
 	if (!buffer)
-	return (NULL);
-	read_byte = 1;//read_byteが0になるまでwhileに入る
-	while (read_byte > 0 && !ft_strchr(save, '\n'))//strchrは文字列に'\n'がない場合NULLを返す
+		return (NULL);
+	read_byte = 1;
+	while (read_byte > 0 && !ft_strchr(save, '\n'))
 	{
-		read_byte = read(fd, buffer, BUFFER_SIZE);//read_byteが0になるとwhileから抜ける //read関数は読み込んだバイト数を返す
+		read_byte = read(fd, buffer, BUFFER_SIZE);
 		if (read_byte == -1)
 		{
 			free(buffer);
 			free(save);
 			return (NULL);
 		}
-		buffer[read_byte] = '\0';//bufferの最後に'\0'を入れる
+		buffer[read_byte] = '\0';
 		tmp = ft_strjoin(save, buffer);
-		free(save);//saveはmallocしてるけどtmpはmallocしてないからここでfreeする
+		free(save);
 		save = tmp;
 	}
 	free(buffer);
@@ -65,21 +65,20 @@ char	*read_and_save_file_data(int fd, char *save)
 
 char	*extract_line_data(char *save)
 {
-    char		*line;
+	char		*line;
 	size_t		i;
 
 	i = 0;
-	if (!save || !*save)//*saveはsave[0]のこと	←超重要
+	if (!save || !*save)
 		return (NULL);
 	while (save[i] && save[i] != '\n')
 		i++;
-	// printf("%d",i);
-	line = malloc(sizeof(char) * (i + 2));//'\0'と'\n'の分を確保
+	line = malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
-	ft_strlcpy(line, save, i + 1);//'\0'を入れる //i+1は'\0'の分
-	if (save[i] == '\n')//'\n'がある場合
-		line[i++] = '\n';//'\n'を入れる //i++ではなくi+1だと'\0'の分を入れてしまう
+	ft_strlcpy(line, save, i + 1);
+	if (save[i] == '\n')
+		line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
 }
@@ -99,10 +98,10 @@ char	*extract_second_line_data(char *save)
 		free(save);
 		return (NULL);
 	}
-	second_line = malloc(sizeof(char) * (ft_strlen(save) - i + 1));//'\0'の分を確保 //ft_strlenは'\0'を含まない
+	second_line = malloc(sizeof(char) * (ft_strlen(save) - i + 1));
 	if (!second_line)
 		return (NULL);
-	i += 1;//'\n'の次の文字からコピーする
+	i += 1;
 	while (save[i])
 		second_line[j++] = save[i++];
 	second_line[j] = '\0';
