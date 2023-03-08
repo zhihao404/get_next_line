@@ -6,7 +6,7 @@
 /*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 13:59:48 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/08 14:08:42 by zhihao           ###   ########.fr       */
+/*   Updated: 2023/03/08 14:38:20 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*read_and_save_file_data(int fd, char *save)
 	char	*buffer;
 	char	*tmp;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + size_t(1)));
+	buffer = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	read_byte = 1;
