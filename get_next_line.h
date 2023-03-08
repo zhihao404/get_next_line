@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshihiro <mshihiro@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: zhihao <zhihao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:03:30 by zhihao            #+#    #+#             */
-/*   Updated: 2023/03/07 16:47:30 by mshihiro         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:18:27 by zhihao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <sys/types.h>
 
 char	*get_next_line(int fd);
 char	*read_and_save_file_data(int fd, char *save);
